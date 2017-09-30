@@ -48,12 +48,12 @@ max_disp = 256
 #            yield ret
 #            del ret
     
-def generate_training_data(train_dir = '/home/chander/abhinau_files/stereo/data/training/'):
+def generate_training_data(train_dir = '/home/nownow/Documents/projects/stereo/data/training/'):
     #w = int(np.random.normal(600,60))
     #h = int(np.random.normal(150,30))
 
-    w = 64
-    h = 64   
+    w = 32
+    h = 32   
     
     cx = int(np.random.uniform(400,1200-w/2))
     cy = int(np.random.uniform(150,300-h/2))
@@ -72,15 +72,9 @@ def generate_training_data(train_dir = '/home/chander/abhinau_files/stereo/data/
             l = np.expand_dims(np.expand_dims(cv2.imread(l_dir+l_f[i],0).astype('float32')/255,axis=0),axis=0)
             r = np.expand_dims(np.expand_dims(cv2.imread(r_dir+r_f[i],0).astype('float32')/255,axis=0),axis=0)
                 
-<<<<<<< HEAD
             d = d[:,:,cy-h/2:cy+h/2,cx-w/2:cx+w/2]
             l = l[:,:,cy-h/2:cy+h/2,cx-w/2:cx+w/2]
             #r0 = r[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-=======
-            d = d[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-            l = l[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-            r0 = r[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
             
             x = np.zeros((1,2,max_disp,d.shape[-2],d.shape[-1]))
             for j in range(max_disp):
@@ -90,11 +84,7 @@ def generate_training_data(train_dir = '/home/chander/abhinau_files/stereo/data/
             for j in range(max_disp):
                 #temp = np.zeros(r0.shape)
                 #x[0,1,i,:,1+i:] = r0[:,:,:,:-(i+1)]
-<<<<<<< HEAD
                 x[0,1,j,:,:] = r[:,:,cy-h/2:cy+h/2,cx-w/2-j:cx+w/2-j]
-=======
-                x[0,1,i,:,:] = r[:,:,150-h/2:150+h/2,600-w/2-i:600+w/2-i]
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
                 #x.append(temp)
             d = keras.utils.to_categorical(d,max_disp)
             d = np.reshape(d,[1,max_disp] + list(l[0][0].shape))
@@ -102,7 +92,6 @@ def generate_training_data(train_dir = '/home/chander/abhinau_files/stereo/data/
             yield ret
             #del ret
 
-<<<<<<< HEAD
 def generate_validation_data(train_dir =  '/home/nownow/Documents/projects/stereo/data/training/'):
     #w = int(np.random.normal(600,60))
     #h = int(np.random.normal(150,30))
@@ -113,14 +102,6 @@ def generate_validation_data(train_dir =  '/home/nownow/Documents/projects/stere
     cx = int(np.random.uniform(400,1200-w/2))
     cy = int(np.random.uniform(150,300-h/2))
 
-=======
-def generate_validation_data(train_dir =  '/home/chander/abhinau_files/stereo/data/training/'):
-    #w = int(np.random.normal(600,60))
-    #h = int(np.random.normal(150,30))
-    
-    w = 64
-    h = 64
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
     l_dir = train_dir+'image_2/'
     r_dir = train_dir+'image_3/'
     d_dir = train_dir+'disp_noc_0/'
@@ -134,17 +115,10 @@ def generate_validation_data(train_dir =  '/home/chander/abhinau_files/stereo/da
             d = np.clip(np.expand_dims(np.expand_dims(cv2.imread(d_dir+d_f[i],0).astype('float32'),axis=0),axis=0),0,max_disp)
             l = np.expand_dims(np.expand_dims(cv2.imread(l_dir+l_f[i],0).astype('float32')/255,axis=0),axis=0)
             r = np.expand_dims(np.expand_dims(cv2.imread(r_dir+r_f[i],0).astype('float32')/255,axis=0),axis=0)
-<<<<<<< HEAD
                 
             d = d[:,:,cy-h/2:cy+h/2,cx-w/2:cx+w/2]
             l = l[:,:,cy-h/2:cy+h/2,cx-w/2:cx+w/2]
             #r0 = r[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-=======
-            
-            d = d[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-            l = l[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
-            r0 = r[:,:,150-h/2:150+h/2,600-w/2:600+w/2]
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
             
             x = np.zeros((1,2,max_disp,d.shape[-2],d.shape[-1]))
             for j in range(max_disp):
@@ -154,18 +128,10 @@ def generate_validation_data(train_dir =  '/home/chander/abhinau_files/stereo/da
             for j in range(max_disp):
                 #temp = np.zeros(r0.shape)
                 #x[0,1,i,:,1+i:] = r0[:,:,:,:-(i+1)]
-<<<<<<< HEAD
                 x[0,1,j,:,:] = r[:,:,cy-h/2:cy+h/2,cx-w/2-j:cx+w/2-j]
                 #x.append(temp)
             d = keras.utils.to_categorical(d,max_disp)
             d = np.reshape(d,[1,max_disp] + list(l[0][0].shape))
-=======
-                x[0,1,i,:,:] = r[:,:,150-h/2:150+h/2,600-w/2-i:600+w/2-i]
-                #x.append(temp)
-            d = keras.utils.to_categorical(d,max_disp)
-            d = np.reshape(d,[1,max_disp] + list(l[0][0].shape))
-
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
             ret = (x,d)
             yield ret
             #del ret            
@@ -269,11 +235,7 @@ seq.add(Conv3D(4,(1,7,7),padding="same",activation='relu',input_shape=(2,None,No
 #seq.add(MaxPooling2D())
 seq.add(Conv3D(8,(1,5,5),padding="same",activation='relu'))
 #seq.add(MaxPooling2D())
-<<<<<<< HEAD
 seq.add(Conv3D(16,(1,3,3),padding="same",activation='relu'))
-=======
-seq.add(Conv3D(8,(1,5,5),padding="same",activation='relu'))
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
 #seq.add(MaxPooling2D())
 seq.add(Conv3D(16,(1,3,3),padding="same",activation='relu'))
 #seq.add(Conv2D(4,(7,7),padding="same",activation='relu'))
@@ -284,11 +246,7 @@ seq.add(Conv3D(4,(1,7,7),padding="same",activation='relu'))
 #seq.add(UpSampling2D())
 #seq.add(Conv2D(1,(3,3),padding="same",activation='relu'))
 
-<<<<<<< HEAD
 seq.add(Conv3D(1,(1,9,9),padding="same",activation='relu'))
-=======
-seq.add(Conv3D(4,(1,7,7),padding="same",activation='relu'))
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
 
 #seq.trainable = False
 
@@ -318,19 +276,12 @@ costs = seq(x)
     
 #smoothed_costs = Lambda(expand,output_shape=(1,256,None,None))(smoothed_costs)
 #smoothed_costs = Conv2D(max_disp,(5,5),padding="same",activation='relu')(costs)
-<<<<<<< HEAD
 smoothed_costs = Conv3D(4,(5,5,5),padding="same",activation='relu')(costs)
 smoothed_costs = Conv3D(8,(3,3,3),padding="same",activation='relu')(smoothed_costs)
 smoothed_costs = Conv3D(4,(3,3,3),padding="same",activation='relu')(smoothed_costs)
 smoothed_costs = Conv3D(1,(5,5,5),padding="same",activation='sigmoid')(smoothed_costs)
 #smoothed_costs = Lambda(contract,output_shape=(256,None,None))(smoothed_costs)
 y = Lambda(contract,output_shape=(max_disp,None,None))(smoothed_costs)
-=======
-smoothed_costs = Conv3D(4,(5,3,3),padding="same",activation='relu')(costs)
-smoothed_costs = Conv3D(1,(5,3,3),padding="same",activation='sigmoid')(costs)
-#smoothed_costs = Lambda(contract,output_shape=(256,None,None))(smoothed_costs)
-y = Lambda(contract,output_shape=(256,None,None))(smoothed_costs)
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
 #y = Conv2D(1,(3,3),activation='relu',padding='same')(keras.backend.reshape(smoothed_costs,(max_disp,None,None)))
 #y = Conv2D(1,(3,3),activation='relu',padding='same')(smoothed_costs)
 #y = Lambda(argmin,output_shape=argmin_output_shape)(costs)
@@ -345,14 +296,10 @@ model = Model(x,y)
 model.summary()
 
 model.compile(optimizer='adadelta',loss='binary_crossentropy')
-<<<<<<< HEAD
 callback = [keras.callbacks.ModelCheckpoint('/home/nownow/Documents/projects/stereo/saved_files/sep_30_16_53.h5',save_best_only=True,save_weights_only=True),
 	    keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.3,
                                   patience=3, min_lr=0.001)]
 
-=======
-callback = [keras.callbacks.ModelCheckpoint('/home/chander/abhinau_files/stereo/sep_27_0_21.h5',save_best_only=True,save_weights_only=True)]
->>>>>>> 677ced4918073951ed8afbedb98573ab1946454c
 #model.fit_generator(,d,epochs=15,callbacks=callback)
 model.fit_generator(generator=generate_training_data(),
                     steps_per_epoch=160,
